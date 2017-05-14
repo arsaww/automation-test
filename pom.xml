@@ -14,5 +14,13 @@
             <artifactId>conductor</artifactId>
             <version>2.3.0</version>
         </dependency>
+
+        <!-- https://github.com/anshooarora/extentreports-java.git -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>3.0.5</version>
+        </dependency>
     </dependencies>
+
 </project>
