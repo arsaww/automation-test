@@ -33,12 +33,10 @@ public class FirstTest {
             }
         }
         d.clickOnElement(e);
-        d.sleep();
         l = d.findElements("input[type=text]");
         d.writeInTextField(l.get(0),"Jérôme");
         d.writeInTextField(l.get(1),"FEUILLEBOIS");
         d.clickOnElement("#Submit");
-        d.sleep();
         l = d.findElements("input[type=number]");
         d.writeInTextField(l.get(0),"10");
         d.writeInTextField(l.get(1),"22");
@@ -54,7 +52,6 @@ public class FirstTest {
     public void login(String login, String password) throws InterruptedException {
         d.accessUrl("http://localhost:8080/admin");
         d.logInformation("Login as "+login+"...");
-        d.sleep();
         d.writeInTextField(d.findElement("input[type=text]"),login);
         d.writeInTextField(d.findElement("input[type=password]"),password);
         d.clickOnElement("input[type=submit].loginbutton");
@@ -66,14 +63,12 @@ public class FirstTest {
         d.accessUrl("http://localhost:8080/admin");
         d.logInformation("Reassigning task...");
         d.clickOnElement(d.findElements("div[data-aw-module=Console]").get(0));
-        d.sleep();
         d.clickOnElement(d.findElement("div[data-aw-module=Workitems]"));
         while(d.elementExists("#mod_console #mod_workitems .aw_widgets_datatable_FilterPanel_rule_clear")){
-            d.sleep();
         }
         d.clickOnElement("#mod_console #mod_workitems .aw_widgets_datatable_FilterPanel_add_button");
         d.clickOnElement(".aw_widgets_popup_dialog_Dialog div:nth-child(1) div:nth-child(4)");
-        d.writeInTextField(d.findElement(".aw_widgets_datatable_filter_TextFilter_input"),from);
+        d.writeInTextField("input.aw_widgets_datatable_filter_TextFilter_input",from);
         d.clickOnElement(".aw_widgets_datatable_FilterDialog_apply_button");
         int i = 0;
         while(!d.elementExists("#mod_console #mod_workitems div.aw_widgets_datatable_HeaderPanel .aw_widgets_datatable_HeaderPanel_table tr " +
@@ -82,7 +77,6 @@ public class FirstTest {
                     "td:nth-child(2) .aw_widgets_datatable_HeaderPanel_label");
             i++;
         }
-        d.sleep();
         d.rightClickOnElement("#mod_console #mod_workitems div.aw_widgets_datatable_ContentPanel .aw_widgets_datatable_ContentPanel_page " +
                 "tbody tr:nth-child(1) td:nth-child(1)");
         d.clickOnElement(".popup_menu .item.enabled:nth-child(1)");

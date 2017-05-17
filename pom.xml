@@ -10,9 +10,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.ddavison</groupId>
-            <artifactId>conductor</artifactId>
-            <version>2.3.0</version>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.52.0</version>
         </dependency>
 
         <!-- https://github.com/anshooarora/extentreports-java.git -->

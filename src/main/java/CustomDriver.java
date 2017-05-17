@@ -82,25 +82,27 @@ public class CustomDriver {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.sleep();
     }
 
     public void accessUrl(String url) {
-        accessUrl(url,false);
+        accessUrl(url, false);
     }
 
-    public void accessUrl(String url, boolean showDetails){
+    public void accessUrl(String url, boolean showDetails) {
         if (active) {
             String stepName = "Access URL";
             String details = url;
             try {
                 driver.get(url);
-                if(showDetails){
+                if (showDetails) {
                     captureScreenAndLogDetails(Status.INFO, stepName, details);
                 }
             } catch (Exception e) {
                 captureScreenAndLogDetails(Status.ERROR, stepName, details);
                 quit(true);
             }
+            this.sleep();
         }
     }
 
@@ -108,7 +110,7 @@ public class CustomDriver {
         return findElements(cssSelector, false).get(0);
     }
 
-    public WebElement findElement(String cssSelector,boolean showDetails) {
+    public WebElement findElement(String cssSelector, boolean showDetails) {
         return findElements(cssSelector, showDetails).get(0);
     }
 
@@ -130,6 +132,7 @@ public class CustomDriver {
                 captureScreenAndLogDetails(Status.ERROR, stepName, e.getMessage());
                 quit(true);
             }
+            this.sleep();
             return elements;
         }
         return new WebElementList(this, "empty", null);
@@ -138,6 +141,7 @@ public class CustomDriver {
     public boolean elementExists(String cssSelector) {
         try {
             List<WebElement> elements = driver.findElements(By.cssSelector(cssSelector));
+            this.sleep();
             return elements != null && elements.size() > 0;
         } catch (Exception e) {
             return false;
@@ -162,6 +166,30 @@ public class CustomDriver {
                 captureScreenAndLogDetails(Status.ERROR, stepName, e.getMessage());
                 quit(true);
             }
+            this.sleep();
+        }
+    }
+
+    public void writeInTextField(String cssSelector, String inputValue) {
+        writeInTextField(cssSelector, inputValue, false);
+    }
+
+    public void writeInTextField(String cssSelector, String inputValue, boolean showDetails) {
+        if (active) {
+            String stepName = "Write in a text field";
+            String details = cssSelector + " => \"" + inputValue + "\"";
+            try {
+                WebElement element = this.findElement(cssSelector);
+                element.clear();
+                element.sendKeys(inputValue);
+                if (showDetails) {
+                    captureScreenAndLogDetails(Status.INFO, stepName, details);
+                }
+            } catch (Exception e) {
+                captureScreenAndLogDetails(Status.ERROR, stepName, e.getMessage());
+                quit(true);
+            }
+            this.sleep();
         }
     }
 
@@ -179,6 +207,7 @@ public class CustomDriver {
                 if (showDetails) {
                     captureScreenAndLogDetails(Status.INFO, stepName, details);
                 }
+                this.sleep();
                 return true;
             } catch (Exception e) {
                 captureScreenAndLogDetails(Status.ERROR, stepName, details + "<br />" + e.getMessage());
@@ -205,6 +234,7 @@ public class CustomDriver {
                 captureScreenAndLogDetails(Status.ERROR, stepName, "" + "<br />" + e.getMessage());
                 quit(true);
             }
+            this.sleep();
         }
     }
 
@@ -228,6 +258,7 @@ public class CustomDriver {
                 captureScreenAndLogDetails(Status.ERROR, stepName, details + "<br />" + e.getMessage());
                 quit(true);
             }
+            this.sleep();
         }
     }
 
@@ -251,6 +282,7 @@ public class CustomDriver {
                 captureScreenAndLogDetails(Status.ERROR, stepName, details + "<br />" + e.getMessage());
                 quit(true);
             }
+            this.sleep();
         }
     }
 
@@ -279,6 +311,7 @@ public class CustomDriver {
                 captureScreenAndLogDetails(Status.ERROR, stepName, e.getMessage());
                 quit(true);
             }
+            this.sleep();
             return elements;
         }
         return null;
@@ -291,18 +324,23 @@ public class CustomDriver {
             } else {
                 captureScreenAndLogDetails(Status.ERROR, info, "Failure");
             }
+            this.sleep();
         }
     }
 
-    public void logInformation(String info){
-        if(active){
+    public void logInformation(String info) {
+        if (active) {
             captureScreenAndLogDetails(Status.INFO, info, "");
         }
     }
 
-    public boolean highlight(WebElement e){
-        ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1],arguments[2])",e,"style","border:4px orange solid;");
-        return true;
+    public boolean highlight(WebElement e) {
+        if (active) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", e, "style", "border:4px orange solid;");
+            this.sleep();
+            return true;
+        }
+        return false;
     }
 
 }

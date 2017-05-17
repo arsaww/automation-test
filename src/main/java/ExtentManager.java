@@ -8,7 +8,7 @@ import java.util.Calendar;
 public class ExtentManager {
 
     private ExtentManager() {
-        File file = new File("C:\\workspace\\automation-test\\src\\main\\resources\\IEDriverServer.exe");
+        File file = new File("C:\\workspace\\automation-test\\src\\main\\resources\\chromedriver.exe");
         System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
     }
 
